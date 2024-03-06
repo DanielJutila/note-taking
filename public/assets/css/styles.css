@@ -19,7 +19,7 @@ body {
 .note-textarea,
 .note-title {
   color: #000000;
-  width: 50%;
+  width: 100%;
   outline: none;
   border: none;
 }
@@ -65,9 +65,7 @@ body {
   align-items: center;
 }
 .larger-icon{
-  font-size: 100%;
-  padding: 10px;
-  margin: 10px;
+  font-size: 2em;
 }
 .list-item-title {
   display: inline-block;

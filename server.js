@@ -34,18 +34,38 @@ app.get('/api/notes', (req, res) => {
   });
 });
 
-app.delete('/api/notes', (req, res) => {
-  
-})
+
+app.delete('/api/notes/:id', (req, res) => {
+  const id = req.params.id;
+  fs.readFile('./db/notes.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading notes.json:', err);
+      return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+    let notes = JSON.parse(data);
+    const index = notes.findIndex(note => note.id === id);
+    if (index !== -1) {
+      notes.splice(index, 1);
+      fs.writeFile('./db/notes.json', JSON.stringify(notes, null, 2), 'utf8', (err) => {
+        if (err) {
+          console.error('Error writing notes.json:', err);
+          return res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+        res.status(200).json({ success: true, message: 'Note deleted successfully' });
+      });
+    } else {
+      res.status(404).json({ success: false, message: 'Note not found' });
+    }
+  });
+});
+
 
 app.post('/api/notes', (req, res) => {
-
   const newNote = {
     id: uuidv4(),
     title: req.body.title,
     text: req.body.text,
   };
-  
   fs.readFile(path.join(__dirname, './db/notes.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
