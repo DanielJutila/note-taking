@@ -18,7 +18,7 @@
   <nav class="navbar bg-info">
     <a class="navbar-brand text-light p-3" href="./index.html">Note Taker </a>
     <div class="icons">
-      <button type="button" class="btn btn-outline-light btn-sm save-note" id="save-note">
+      <button type="button" class="btn btn-outline-light btn-sm save-note" id="save-note" style="display:none;">
         <span class="fas fa-save"></span>
         <span>Save Note</span>
       </button>
@@ -26,7 +26,7 @@
         <span class="fas fa-edit"></span>
         <span>New Note</span>
       </button>
-      <button type="button" class="btn btn-sm btn-outline-danger clear-btn">
+      <button type="button" class="btn btn-sm btn-outline-danger clear-btn" id="clear-form" style="display: none;">
         <span class="fas fa-times"></span>
         <span>Clear Form</span>
       </button>
@@ -47,28 +47,8 @@
       </div>
     </div>
   </div>
-  <script src="./assets/js/index.js"></script>
-  <script>
-    $(document).ready(function () {
-      $("#save-note").click(function () {
-        var noteData = {
-          title: $(".note-title").val(), // Assuming you have an input field with id="note-title"
-          text: $(".note-textarea").val()    // Assuming you have an input field with id="note-text"
-        };
-        $.ajax({
-          type: "POST",
-          url: "/api/notes",
-          data: noteData,
-          success: function (response) {
-            console.log("Note saved successfully:", response);
-          },
-          error: function (xhr, status, error) {
-            console.error("Error saving note:", error);
-          }
-        });
-      });
-    });
-  </script>
+  <script src="/assets/js/index.js"></script>
+
 </body>
 
 </html>
